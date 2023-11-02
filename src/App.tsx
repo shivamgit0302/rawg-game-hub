@@ -1,38 +1,61 @@
-import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+import NavBar from "./components/NavBar";
+import GenreList from "./components/GenreList";
+import { HStack, Stack, Box } from "@chakra-ui/react";
+import GameList from "./components/GameList";
+import { Genre } from "./components/GenreList";
+import { useState } from "react";
+import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
+import GameHeading from "./components/GameHeading";
+import { Platform } from "./components/PlatformSelector";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
-  </ChakraProvider>
-)
+export interface GamesQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+  sortValue: string | "";
+  searchValue: string | "";
+}
+
+const App = () => {
+  const [gamesQuery, setGamesQuery] = useState<GamesQuery>({} as GamesQuery);
+
+  return (
+    <>
+      <NavBar
+        onSearch={(searchValue) =>
+          setGamesQuery({ ...gamesQuery, searchValue })
+        }
+      />
+      <HStack alignItems={"start"} justifyContent={"space-between"}>
+        <Box width={"250px"}>
+          <GenreList
+            selectedGenre={gamesQuery.genre}
+            onClick={(genre: Genre) => setGamesQuery({ ...gamesQuery, genre })}
+          />
+        </Box>
+        <Stack>
+          <GameHeading
+            heading={gamesQuery.genre?.name ? gamesQuery.genre?.name : "Games"}
+          />
+          <HStack>
+            <PlatformSelector
+              selectedPlatform={gamesQuery.platform}
+              onClick={(platform: Platform) =>
+                setGamesQuery({ ...gamesQuery, platform })
+              }
+            />
+            <SortSelector
+              selectedSortValue={gamesQuery.sortValue}
+              onSelect={(sortValue) =>
+                setGamesQuery({ ...gamesQuery, sortValue })
+              }
+            />
+          </HStack>
+          <GameList gamesQuery={gamesQuery} />
+        </Stack>
+      </HStack>
+    </>
+  );
+};
+
+export default App;
