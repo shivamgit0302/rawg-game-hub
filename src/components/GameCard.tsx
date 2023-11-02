@@ -22,6 +22,7 @@ const GameCard = ({ game }: Props) => {
         alt="Green double couch with wooden legs"
         borderTopRadius={"lg"}
       />
+
       <CardBody>
         <HStack justifyContent={"space-between"} marginBottom={3}>
           <PlatformList
