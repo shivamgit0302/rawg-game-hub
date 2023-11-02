@@ -1,6 +1,6 @@
 import NavBar from "./components/NavBar";
 import GenreList from "./components/GenreList";
-import { HStack, Stack, Box } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show, Flex } from "@chakra-ui/react";
 import GameList from "./components/GameList";
 import { Genre } from "./components/GenreList";
 import { useState } from "react";
@@ -20,41 +20,56 @@ const App = () => {
   const [gamesQuery, setGamesQuery] = useState<GamesQuery>({} as GamesQuery);
 
   return (
-    <>
-      <NavBar
-        onSearch={(searchValue) =>
-          setGamesQuery({ ...gamesQuery, searchValue })
-        }
-      />
-      <HStack alignItems={"start"} justifyContent={"space-between"}>
-        <Box width={"250px"}>
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{
+        base: "1fr",
+        lg: "250px 1fr",
+      }}
+    >
+      <GridItem area="nav">
+        <NavBar
+          onSearch={(searchValue) =>
+            setGamesQuery({ ...gamesQuery, searchValue })
+          }
+        />
+      </GridItem>
+      <Show above="lg">
+        <GridItem area="aside" paddingX={5}>
           <GenreList
             selectedGenre={gamesQuery.genre}
             onClick={(genre: Genre) => setGamesQuery({ ...gamesQuery, genre })}
           />
-        </Box>
-        <Stack>
+        </GridItem>
+      </Show>
+      <GridItem area="main">
+        <Box paddingLeft={2}>
           <GameHeading
             heading={gamesQuery.genre?.name ? gamesQuery.genre?.name : "Games"}
           />
-          <HStack>
-            <PlatformSelector
-              selectedPlatform={gamesQuery.platform}
-              onClick={(platform: Platform) =>
-                setGamesQuery({ ...gamesQuery, platform })
-              }
-            />
+          <Flex marginBottom={5}>
+            <Box marginRight={5}>
+              <PlatformSelector
+                selectedPlatform={gamesQuery.platform}
+                onClick={(platform: Platform) =>
+                  setGamesQuery({ ...gamesQuery, platform })
+                }
+              />
+            </Box>
             <SortSelector
               selectedSortValue={gamesQuery.sortValue}
               onSelect={(sortValue) =>
                 setGamesQuery({ ...gamesQuery, sortValue })
               }
             />
-          </HStack>
-          <GameList gamesQuery={gamesQuery} />
-        </Stack>
-      </HStack>
-    </>
+          </Flex>
+        </Box>
+        <GameList gamesQuery={gamesQuery} />
+      </GridItem>
+    </Grid>
   );
 };
 
