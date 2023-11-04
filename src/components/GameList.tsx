@@ -1,10 +1,9 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import { Platform } from "./PlatformSelector";
-import React, { useEffect, useState } from "react";
-import { apiClient } from "../services/api-client";
 import SkeletonCard from "./CardSkeleton";
 import { GamesQuery } from "../App";
+import useGamesQuery from "../hooks/useGames";
 
 export interface Game {
   id: number;
@@ -20,28 +19,8 @@ interface Props {
 }
 
 const GameList = ({ gamesQuery }: Props) => {
-  const [gameList, setGameList] = useState<Game[]>([]);
-  const [isLoading, setLoading] = useState(false);
+  const { gameList, error, isLoading } = useGamesQuery(gamesQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  useEffect(() => {
-    setLoading(true);
-    apiClient
-      .get("/games", {
-        params: {
-          genres: gamesQuery.genre?.id,
-          platforms: gamesQuery.platform?.id,
-          ordering: gamesQuery.sortValue,
-          search: gamesQuery.searchValue,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.results);
-        setGameList(response.data.results);
-        setLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [gamesQuery]);
 
   return (
     <SimpleGrid
@@ -51,6 +30,8 @@ const GameList = ({ gamesQuery }: Props) => {
     >
       {isLoading &&
         skeletons.map((skeleton) => <SkeletonCard key={skeleton} />)}
+
+      {error && <Text>{error}</Text>}
 
       {gameList.map((game) => (
         <GameCard game={game} key={game.id} />
