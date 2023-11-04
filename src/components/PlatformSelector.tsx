@@ -24,13 +24,10 @@ interface Props {
 const PlatformSelector = ({ selectedPlatform, onClick }: Props) => {
   const [platformList, setPlatformList] = useState<Platform[]>([]);
 
-  console.log(selectedPlatform, "selectedPlatform");
-
   useEffect(() => {
     apiClient
       .get("/platforms")
       .then((response) => {
-        console.log(response.data.results);
         setPlatformList(response.data.results);
       })
       .catch((err) => console.error(err));

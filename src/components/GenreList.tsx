@@ -28,7 +28,6 @@ const GenreList = ({ selectedGenre, onClick }: Props) => {
     apiClient
       .get("/genres")
       .then((response) => {
-        console.log(response.data.results);
         setGenreList(response.data.results);
       })
       .catch((err) => console.error(err));
