@@ -52,7 +52,7 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
 
 
   useEffect(() => {
-    axios.get('https://metaverse.aidoc.io/api/auth/test')
+    axios.get('https://pserver7.metaexperience.app')
     .then((response) => {
       console.log(response.data , 'data')
       console.log(response , 'entire response')
