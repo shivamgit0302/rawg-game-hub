@@ -1,18 +1,8 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
-import { Platform } from "./PlatformSelector";
 import SkeletonCard from "./CardSkeleton";
 import { GamesQuery } from "../App";
 import useGamesQuery from "../hooks/useGames";
-
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-}
 
 interface Props {
   gamesQuery: GamesQuery;

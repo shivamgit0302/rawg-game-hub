@@ -6,7 +6,7 @@ import {
   HStack,
   Badge,
 } from "@chakra-ui/react";
-import { Game } from "./GameList";
+import { Game } from "../hooks/useGames";
 import PlatformList from "./PlatformIconList";
 import getCroppedImageUrl from "../services/image-url";
 

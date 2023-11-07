@@ -2,9 +2,7 @@ import { apiClient } from "../services/api-client";
 import { GamesQuery } from "../App";
 import { useState , useEffect } from "react";
 import { Platform } from "../components/PlatformSelector";
-import { CanceledError } from "axios";
-
-
+import axios , { CanceledError } from "axios";
 export interface Game {
     id: number;
     name: string;
@@ -48,10 +46,23 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
         if (err instanceof(CanceledError)) return; 
         setError(err.message)
     });
-
-
      return () => controller.abort() 
   }, [gamesQuery]);
+
+
+
+  useEffect(() => {
+    axios.get('https://metaverse.aidoc.io/api/auth/test')
+    .then((response) => {
+      console.log(response.data , 'data')
+      console.log(response , 'entire response')
+    })
+    .catch((err) => {
+      console.log(err.message, 'error message')
+      console.log(err, 'entire error')
+    });
+  }, []); 
+
 
   return {gameList, isLoading , error }
 
