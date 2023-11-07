@@ -52,7 +52,7 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
 
 
   useEffect(() => {
-    axios.post('https://metaverse.aidoc.io/api/auth/test', {email:"shivam@aimedis.com"})
+    axios.get('https://metaverse.aidoc.io/api/auth/test')
     .then((response) => {
       console.log(response.data , 'data')
       console.log(response , 'entire response')
@@ -62,6 +62,30 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
       console.log(err, 'entire error')
     });
   }, []); 
+
+  useEffect(() => {
+    axios.post('https://metaverse.aidoc.io/api/auth/test', {email:'shivam@aimedis.com'})
+    .then((response) => {
+      console.log(response.data , 'data')
+      console.log(response , 'entire response')
+    })
+    .catch((err) => {
+      console.log(err.message, 'error message')
+      console.log(err, 'entire error')
+    });
+  }, []); 
+
+  useEffect(() => {
+    axios.post('https://metaverse.aidoc.io/api/auth/login', {email:'shivam@aimedis.com', password:"Qwerty@123"})
+    .then((response) => {
+      console.log(response.data , 'data')
+      console.log(response , 'entire response')
+    })
+    .catch((err) => {
+      console.log(err.message, 'error message')
+      console.log(err, 'entire error')
+    });
+  }, []);
 
 
   return {gameList, isLoading , error }
