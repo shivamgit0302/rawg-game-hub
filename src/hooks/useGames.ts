@@ -68,7 +68,14 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
     axios.post('https://metaverse.aidoc.io/api/auth/login', {
       email:'shivam@aimedis.com',
       password:'123456'
-    })
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any other necessary headers here
+      },
+    }
+    )
     .then(function (response) {
       console.log(response);
     })
