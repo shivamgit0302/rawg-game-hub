@@ -62,28 +62,18 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
       console.log(err, 'entire error')
     });
   }, []); 
+ 
 
   useEffect(() => {
-    axios.post('https://metaverse.aidoc.io/api/auth/test', {email:'shivam@aimedis.com'})
-    .then((response) => {
-      console.log(response.data , 'data')
-      console.log(response , 'entire response')
+    axios.post('https://metaverse.aidoc.io/api/auth/login', {
+      email:'shivam@aimedis.com',
+      password:'123456'
     })
-    .catch((err) => {
-      console.log(err.message, 'error message')
-      console.log(err, 'entire error')
-    });
-  }, []); 
-
-  useEffect(() => {
-    axios.post('https://metaverse.aidoc.io/api/auth/login', {email:'shivam@aimedis.com', password:"Qwerty@123"})
-    .then((response) => {
-      console.log(response.data , 'data')
-      console.log(response , 'entire response')
+    .then(function (response) {
+      console.log(response);
     })
-    .catch((err) => {
-      console.log(err.message, 'error message')
-      console.log(err, 'entire error')
+    .catch(function (error) {
+      console.log(error);
     });
   }, []);
 
