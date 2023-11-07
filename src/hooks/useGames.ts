@@ -71,7 +71,7 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
     },
     {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         // Add any other necessary headers here
       },
     }
