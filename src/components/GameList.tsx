@@ -16,7 +16,7 @@ const GameList = ({ gamesQuery }: Props) => {
     <SimpleGrid
       columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
       spacing={10}
-      p={"10px"}
+      p={"0 20px"}
     >
       {isLoading &&
         skeletons.map((skeleton) => <SkeletonCard key={skeleton} />)}
