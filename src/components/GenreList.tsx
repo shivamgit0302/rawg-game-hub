@@ -7,8 +7,10 @@ import {
   Image,
   HStack,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { apiClient } from "../services/api-client";
+import getCroppedImageUrl from "../services/image-url";
 
 export interface Genre {
   id: number;
@@ -23,12 +25,15 @@ interface Props {
 
 const GenreList = ({ selectedGenre, onClick }: Props) => {
   const [genreList, setGenreList] = useState<Genre[]>([]);
+  const [isLoading , setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     apiClient
       .get("/genres")
       .then((response) => {
         setGenreList(response.data.results);
+        setIsLoading(false);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -38,12 +43,13 @@ const GenreList = ({ selectedGenre, onClick }: Props) => {
       <Heading fontSize="24px" margin={"36px 0px 12px"}>
         Genres ({genreList.length})
       </Heading>
+     {isLoading && <Spinner />} 
       <List>
         {genreList.map((genre) => (
           <ListItem key={genre.id} paddingY={"5px"}>
             <HStack>
               <Image
-                src={genre.image_background}
+                src={getCroppedImageUrl(genre.image_background)}
                 boxSize={"32px"}
                 objectFit={"cover"}
                 borderRadius={5}

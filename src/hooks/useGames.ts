@@ -2,7 +2,7 @@ import { apiClient } from "../services/api-client";
 import { GamesQuery } from "../App";
 import { useState , useEffect } from "react";
 import { Platform } from "../components/PlatformSelector";
-import axios , { CanceledError } from "axios";
+import { CanceledError } from "axios";
 export interface Game {
     id: number;
     name: string;
@@ -48,78 +48,6 @@ const useGamesQuery = (gamesQuery:GamesQuery) => {
     });
      return () => controller.abort() 
   }, [gamesQuery]);
-
-
-
-  // useEffect(() => {
-  //   axios.get('https://metaverse.aidoc.io/api/auth/test')
-  //   .then((response) => {
-  //     console.log(response.data , 'data')
-  //     console.log(response , 'entire response')
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.message, 'error message')
-  //     console.log(err, 'entire error')
-  //   });
-  // }, []); 
- 
-
-  // // useEffect(() => {
-  //   axios.post('https://metaverse.aidoc.io/api/auth/login', {
-  //     email:'shivam@aimedis.com',
-  //     password:'123456'
-  //   },
-  //   {
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //       // Add any other necessary headers here
-  //     },
-  //   }
-  //   )
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   axios.post('https://metaverse.aidoc.io/api/activity/joinEvent/' , 
-  //   {
-  //     eventId:'34672364372647326473'
-  //   },
-  //   {
-  //     headers: {
-  //       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IjhqWm9sSTBpOHd2bEp1VUEiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjk5NjU3ODM5LCJpYXQiOjE2OTkzNTMwMzksImlzcyI6Imh0dHBzOi8veHZibHVxcnhiaXJodHd0c253Zmkuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjI1ODRlZjZjLTg1ZDItNGJkOS04YjJiLWIxODEzMjdkMWQzYSIsImVtYWlsIjoic2hpdmFtQGFpbWVkaXMuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE2OTkzNTMwMzl9XSwic2Vzc2lvbl9pZCI6Ijg1NjRhODVmLTM4M2EtNGYxZS1hOTJiLWYzMTExMzE4ZDVlMyJ9.88mueZGyknyDUXGHpcgbf27XXoyHZ45-mB2qh0xxIF8',
-  //       // Add any other necessary headers here
-  //     },
-  //   })
-  //   .then((response) => {
-  //     console.log(response.data , 'join event data')
-  //     console.log(response , 'entire response')
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.message, 'error message')
-  //     console.log(err, 'entire error')
-  //   });
-  // }, []);
-
-  useEffect(() => {
-    axios.get('https://metaverse.aidoc.io/building/list/' , {
-      headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IjhqWm9sSTBpOHd2bEp1VUEiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjk5NjU3ODM5LCJpYXQiOjE2OTkzNTMwMzksImlzcyI6Imh0dHBzOi8veHZibHVxcnhiaXJodHd0c253Zmkuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjI1ODRlZjZjLTg1ZDItNGJkOS04YjJiLWIxODEzMjdkMWQzYSIsImVtYWlsIjoic2hpdmFtQGFpbWVkaXMuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE2OTkzNTMwMzl9XSwic2Vzc2lvbl9pZCI6Ijg1NjRhODVmLTM4M2EtNGYxZS1hOTJiLWYzMTExMzE4ZDVlMyJ9.88mueZGyknyDUXGHpcgbf27XXoyHZ45-mB2qh0xxIF8',
-      }
-    })
-    .then((response) => {
-      console.log(response.data , 'sucess')
-      console.log(response , 'entire sucess')
-    })
-    .catch((err) => {
-      console.log(err.message, 'error message')
-      console.log(err, 'entire error')
-    });
-  }, []);
 
 
   return {gameList, isLoading , error }

@@ -7,7 +7,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { Game } from "../hooks/useGames";
-import PlatformList from "./PlatformIconList";
+import PlatformIconList from "./PlatformIconList";
 import getCroppedImageUrl from "../services/image-url";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 const GameCard = ({ game }: Props) => {
   return (
-    <Card>
+    <Card width={'300px'} overflow={'hidden'} borderRadius={10}>
       <Image
         src={getCroppedImageUrl(game.background_image)}
         alt="Green double couch with wooden legs"
@@ -25,7 +25,7 @@ const GameCard = ({ game }: Props) => {
 
       <CardBody>
         <HStack justifyContent={"space-between"} marginBottom={3}>
-          <PlatformList
+          <PlatformIconList
             platforms={game.parent_platforms?.map((p) => p.platform)}
           />
           <Badge colorScheme="green">{game.metacritic}</Badge>
